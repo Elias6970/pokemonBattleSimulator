@@ -23,3 +23,4 @@ print("d")
 """
 pokemon3=Pokemon("Juan",FIRE,WATER,100)
 pokemon3.current_hp=20
+pokemon3.attacks=["Cuchillada"]
