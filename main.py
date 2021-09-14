@@ -21,4 +21,5 @@ b=Battle(pokemon1,pokemon2)
 print(b.is_finished())
 print("d")
 """
-
+pokemon3=Pokemon("Juan",FIRE,WATER,100)
+pokemon3.current_hp=20
