@@ -1,3 +1,4 @@
+"""
 from .constants import *
 pokemons={
     "BULBASAUR": {
@@ -13,6 +14,6 @@ pokemons={
         HP:60
     }
 }
-"""pokemon1=Pokemon(pokemons["BULBASAUR"][NAME],
+pokemon1=Pokemon(pokemons["BULBASAUR"][NAME],
 pokemons["BULBASAUR"][TYPE1],
 pokemons["BULBASAUR"][TYPE2],100)"""

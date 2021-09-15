@@ -1,4 +1,4 @@
-
+"""
 class Pokemon:
     def __init__(self,name,type1,type2,level):
         self.name=name
@@ -23,25 +23,47 @@ class Battle:
     def __init__(self,pokemon1,pokemon2):
         self.pokemon1=pokemon1
         self.pokemon2=pokemon2
-        self.corrent_turn=0
+        self.current_turn=0
 
     def is_finished(self):
-        print("a")
-        self.pokemon1.current_hp=20
-        self.pokemon2.current_hp=20
-        return self.pokemon1.current_hp<=0 or self.pokemon2.current_hp<=0
-
+        finished=self.pokemon1.current_hp<=0 or self.pokemon2.current_hp<=0
+        if finished:
+            print("winner")#TODO:Create winner fuction
+        else:
+            return finished
+       
     def do_attack(self):
-        command1=None
-        command2=None
-        command1=input("What should "+str(self.pokemon1.name)+" do? ").lower().split(" ")
-        command2=input("What should "+str(self.pokemon2.name)+" do? ").lower().split(" ")
-        
-        #while not (len(command1)==2 and len(command2)==2 and command1[0]=="attack" and command2=="attack"):
-        while not len(command1)==2 :
-            print("Wrong command!!")
-            command1.clear()
-            command2.clear()
-            command1=input("What should "+str(self.pokemon1.name)+" do? ").lower().split(" ")
-            command2=input("What should "+str(self.pokemon2.name)+" do? ").lower().split(" ")
-        #print(command1)
+        self.pokemon1.current_hp=30
+        self.pokemon2.current_hp=30
+        print(self.is_finished())
+#TODO: no entra en el bucle while no se porque
+
+        while not  self.is_finished:
+            self.pokemon1.current_hp=self.pokemon1.current_hp-10
+            print(self.pokemon1.current_hp)
+        print("really finish")
+        print(self.pokemon1.current_hp)
+
+class Command:
+    def ask_command(self,pokemon):
+        command=None
+        command=input("What should "+str(pokemon.name)+" do? ").lower().split(" ")
+        #and command[0]=="attack" and int(command[1])>=0 and int(command[1])<=3
+        while len(command)!=2 or  command[0]!="attack" or command[1].isnumeric()!=True or int(command[1])<0 or int(command[1])>3:
+            print(command[1])
+            command.clear()
+            command=input("What should "+str(pokemon.name)+" do? ").lower().split(" ")
+        return command
+
+    def attack_commands(self,pokemon1,pokemon2):
+        command1=self.ask_command(pokemon1)
+        command2=self.ask_command(pokemon2)
+
+    def a(self):
+        i=True
+        while not i:
+            print("Dentro")
+            i=False
+        print("fuera")   
+
+"""
