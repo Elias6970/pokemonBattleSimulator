@@ -1,4 +1,3 @@
-      
 class Command:
     def ask_command(self,pokemon):
         command=None
@@ -32,3 +31,5 @@ class Battle:
             print(self.pokemon1.name+" wins the battle!!!")
         else:
             print("Draw. Double KO!!!!!")
+
+    

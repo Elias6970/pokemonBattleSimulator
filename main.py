@@ -2,23 +2,9 @@ from assets.pokemon_models import *
 from assets.battle_models import *
 from assets.pokemon_and_moves import *
 from assets.constants import *
-
+from assets.interfaces import *
 import json
-"""
-pokemon1=Pokemon("Bulbasaur",GRASS,POISON,8)
-pokemon1.attacks.append(Attack("Arañazo",NORMAL,PHYSICAL_MOVE,10,100,10))
-pokemon1.stats={
-        HP:45
-}
 
-pokemon2=Pokemon("Ivysaur",GRASS,POISON,15)
-pokemon2.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,10,100,10))
-pokemon2.stats={
-        HP:60
-}
-pokemon1.current_hp=20
-pokemon2.current_hp=20
-"""
 #---Crete pokemons---
 def set_pokemon(pkm1):
         if pkm1==True:
@@ -60,7 +46,7 @@ b=Battle(pokemon1,pokemon2)
 commands=Command()
 
 #---------MAIN LOOP--------------
-
+"""
 while 1<12:
         command1=commands.ask_command(pokemon1)
         command2=commands.ask_command(pokemon2)
@@ -69,4 +55,9 @@ while 1<12:
         if pokemon1.current_hp<=0 or pokemon2.current_hp<=0:
                 b.show_winner() 
                 break
+"""
+interface=Combat() 
+def rain(battle):
+        interface.do_attack_1(battle)
 
+rain(b)
