@@ -5,9 +5,13 @@ class Pokemon:
         self.type2=type2
         self.level=level
         self.attacks=[]
+        self.baseStats={}
         self.stats={}
         self.current_hp=0
         self.current_status=0
+        self.ivs={}
+        self.evs={}
+        self.nature=str
 
 class Attack:
     def __init__(self,name,attack_type,category,power,accuracity,pp):
