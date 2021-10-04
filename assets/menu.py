@@ -30,7 +30,7 @@ class Set:
                 } 
                 
                 pokemon.ivs={
-                    HP: random.randrange(0,31),
+                    HP: random.randrange(0,31), 
                     ATTACK: random.randrange(0,31),
                     DEFENSE: random.randrange(0,31),
                     SPATTACK: random.randrange(0,31),
@@ -56,8 +56,8 @@ class Set:
                        SPATTACK: stats_list[3],
                        SPDEFENSE: stats_list[4],
                        SPEED: stats_list[5]
-                }    
-                           
+                }
+
                 pokemon.current_hp=pokemon.stats[HP]
                 return pokemon
             except Exception:
@@ -103,13 +103,24 @@ class Set:
             evs_list=[hp,attack,defense,spattack,spdefense,speed]
             return evs_list
 
+#stats function
     def set_stats(self,pokemon:Pokemon):
         hp=math.floor(0.01*(2*int(pokemon.baseStats[HP])+int(pokemon.ivs[HP])+math.floor(0.25*int(pokemon.evs[HP])))*int(pokemon.level))+ int(pokemon.level)+10
-        attack=(math.floor(0.01*(2*int(pokemon.baseStats[ATTACK])+int(pokemon.ivs[ATTACK])+math.floor(0.25*int(pokemon.evs[ATTACK])))*int(pokemon.level))+5)*0.1
-        defense=(math.floor(0.01*(2*int(pokemon.baseStats[DEFENSE])+int(pokemon.ivs[DEFENSE])+math.floor(0.25*int(pokemon.evs[DEFENSE])))*int(pokemon.level))+5)*0.1
-        spattack=(math.floor(0.01*(2*int(pokemon.baseStats[SPATTACK])+int(pokemon.ivs[SPATTACK])+math.floor(0.25*int(pokemon.evs[SPATTACK])))*int(pokemon.level))+5)*0.1
-        spdefense=(math.floor(0.01*(2*int(pokemon.baseStats[SPDEFENSE])+int(pokemon.ivs[SPDEFENSE])+math.floor(0.25*int(pokemon.evs[SPDEFENSE])))*int(pokemon.level))+5)*0.1
-        speed=(math.floor(0.01*(2*int(pokemon.baseStats[SPEED])+int(pokemon.ivs[SPEED])+math.floor(0.25*int(pokemon.evs[SPEED])))*int(pokemon.level))+5)*0.1
-     
+        #Añadir naturaleza en vez de un 0.1
+        attack=(math.floor(0.01*(2*int(pokemon.baseStats[ATTACK])+int(pokemon.ivs[ATTACK])+math.floor(0.25*int(pokemon.evs[ATTACK])))*int(pokemon.level))+5)
+        attack=math.floor(attack+(attack*0.1))
+        
+        defense=(math.floor(0.01*(2*int(pokemon.baseStats[DEFENSE])+int(pokemon.ivs[DEFENSE])+math.floor(0.25*int(pokemon.evs[DEFENSE])))*int(pokemon.level))+5)
+        defense=math.floor(defense+(defense*0.1))
+        
+        spattack=(math.floor(0.01*(2*int(pokemon.baseStats[SPATTACK])+int(pokemon.ivs[SPATTACK])+math.floor(0.25*int(pokemon.evs[SPATTACK])))*int(pokemon.level))+5)
+        spattack=math.floor(spattack+(spattack*0.1))
+        
+        spdefense=(math.floor(0.01*(2*int(pokemon.baseStats[SPDEFENSE])+int(pokemon.ivs[SPDEFENSE])+math.floor(0.25*int(pokemon.evs[SPDEFENSE])))*int(pokemon.level))+5)
+        spdefense=math.floor(spdefense+(spdefense*0.1))
+        
+        speed=(math.floor(0.01*(2*int(pokemon.baseStats[SPEED])+int(pokemon.ivs[SPEED])+math.floor(0.25*int(pokemon.evs[SPEED])))*int(pokemon.level))+5)
+        speed=math.floor(speed+(speed*0.1))
+
         stats=[hp,attack,defense,spattack,spdefense,speed]
         return stats

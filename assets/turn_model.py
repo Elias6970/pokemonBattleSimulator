@@ -1,4 +1,4 @@
-from assets.constants import SPEED
+from assets.constants import ATTACK, SPATTACK, SPEED
 from assets.pokemon_models import Pokemon
 
 
@@ -7,9 +7,12 @@ class Do_attack:
         self.pokemon1=pokemon1
         self.pokemon2=pokemon2
 
-    def compute_damage(self,pokemon:Pokemon,attack_number):
-        attack=pokemon.attacks[int(attack_number)].power
-        
+    def compute_damage(self,pokemonAttacker:Pokemon,pokemonDefender:Pokemon,attack_number):
+        attackPower=pokemonAttacker.attacks[int(attack_number)].power
+        if pokemonAttacker.attacks[int(attack_number)].category=="Physical":
+            attackStat=pokemonAttacker.stats[ATTACK]
+        elif pokemonAttacker.attacks[int(attack_number)].category=="Special":
+            attackStat=pokemonAttacker.stats[SPATTACK]
 
 
     def do_damage(self,attack_number):

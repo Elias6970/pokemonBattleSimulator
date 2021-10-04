@@ -1,10 +1,9 @@
 from assets.pokemon_models import *
 from assets.battle_models import *
-from assets.pokemon_and_moves import *
 from assets.constants import *
 from assets.interfaces import *
 from assets.menu import *
-import json
+
 
 set=Set()
 pokemon1=set.set_pokemon(True)
