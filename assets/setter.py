@@ -1,6 +1,6 @@
 from assets.constants import *
 from assets.pokemon_models import *
-import random,math,json
+import random,math,json,sqlite3
 #---Crete pokemons---
 class Set:
     def set_pokemon(self,pkm1):
@@ -57,7 +57,7 @@ class Set:
                        SPDEFENSE: stats_list[4],
                        SPEED: stats_list[5]
                 }
-
+                
                 pokemon.current_hp=pokemon.stats[HP]
                 return pokemon
             except Exception:
@@ -77,7 +77,7 @@ class Set:
                     spdefense=int(input(SPDEFENSE+":"))
                     speed=int(input(SPEED+":"))
                     total=hp+attack+defense+spattack+spdefense+speed
-                    if total>510:
+                    if total>510 or hp>252 or attack>252 or defense>252 or spattack>252 or spdefense>252 or speed>252:
                         print("Evs can only be equal or less than 510, try it again")
                 except:
                     print("Evs are numbers and they can only be equal to 510, we set a random evs for you")
@@ -103,24 +103,34 @@ class Set:
             evs_list=[hp,attack,defense,spattack,spdefense,speed]
             return evs_list
 
-#stats function
+#Verify the nature in the db
+    def verify_natures(self,nature:str):
+        connection=sqlite3.connect("db/globalDb")
+        cursor=connection.cursor()
+
+        cursor.execute("SELECT * FROM NATURES WHERE NAMES=(?)",(nature,))
+        naturePropieties=cursor.fetchone()
+        return naturePropieties
+#Set the real stats with the stats formula
     def set_stats(self,pokemon:Pokemon):
+        naturePropieties=self.verify_natures(pokemon.nature)
+
         hp=math.floor(0.01*(2*int(pokemon.baseStats[HP])+int(pokemon.ivs[HP])+math.floor(0.25*int(pokemon.evs[HP])))*int(pokemon.level))+ int(pokemon.level)+10
-        #Añadir naturaleza en vez de un 0.1
+
         attack=(math.floor(0.01*(2*int(pokemon.baseStats[ATTACK])+int(pokemon.ivs[ATTACK])+math.floor(0.25*int(pokemon.evs[ATTACK])))*int(pokemon.level))+5)
-        attack=math.floor(attack+(attack*0.1))
+        attack=math.floor(attack+(attack*naturePropieties[1]))
         
         defense=(math.floor(0.01*(2*int(pokemon.baseStats[DEFENSE])+int(pokemon.ivs[DEFENSE])+math.floor(0.25*int(pokemon.evs[DEFENSE])))*int(pokemon.level))+5)
-        defense=math.floor(defense+(defense*0.1))
+        defense=math.floor(defense+(defense*naturePropieties[2]))
         
         spattack=(math.floor(0.01*(2*int(pokemon.baseStats[SPATTACK])+int(pokemon.ivs[SPATTACK])+math.floor(0.25*int(pokemon.evs[SPATTACK])))*int(pokemon.level))+5)
-        spattack=math.floor(spattack+(spattack*0.1))
+        spattack=math.floor(spattack+(spattack*naturePropieties[3]))
         
         spdefense=(math.floor(0.01*(2*int(pokemon.baseStats[SPDEFENSE])+int(pokemon.ivs[SPDEFENSE])+math.floor(0.25*int(pokemon.evs[SPDEFENSE])))*int(pokemon.level))+5)
-        spdefense=math.floor(spdefense+(spdefense*0.1))
+        spdefense=math.floor(spdefense+(spdefense*naturePropieties[4]))
         
         speed=(math.floor(0.01*(2*int(pokemon.baseStats[SPEED])+int(pokemon.ivs[SPEED])+math.floor(0.25*int(pokemon.evs[SPEED])))*int(pokemon.level))+5)
-        speed=math.floor(speed+(speed*0.1))
+        speed=math.floor(speed+(speed*naturePropieties[5]))
 
         stats=[hp,attack,defense,spattack,spdefense,speed]
         return stats

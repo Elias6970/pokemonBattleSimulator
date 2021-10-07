@@ -2,10 +2,11 @@ from assets.pokemon_models import *
 from assets.battle_models import *
 from assets.constants import *
 from assets.interfaces import *
-from assets.menu import *
+from assets.setter import *
 
 
 set=Set()
+
 pokemon1=set.set_pokemon(True)
 pokemon2=set.set_pokemon(False)
 pokemon1.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,10,100,10))

@@ -11,7 +11,7 @@ class Pokemon:
         self.current_status=0
         self.ivs={}
         self.evs={}
-        self.nature=str
+        self.nature="Adamant"
 
 class Attack:
     def __init__(self,name,attack_type,category,power,accuracity,pp):
