@@ -5,15 +5,32 @@ import random,math,json,sqlite3
 class Set:
     def set_pokemon(self,pkm1):
             if pkm1==True:
-                pokemon_name=input("Select the first pokemon: ").lower().capitalize()
+                condition=False
+                while condition==False:
+                    try:
+                        pokemon_name=input("Select the first pokemon: ").lower().capitalize().strip()
+                        with open("db/pokemon.json","r") as file:
+                            pokemon_db=json.load(file)
+                            pokemon_info=pokemon_db[pokemon_name]
+                            file.close()
+                            condition=True
+                    except KeyError:
+                        print("This pokemon does not exist or you did a mistake")
+                        condition=False
             else:
-                pokemon_name=input("Select the second pokemon: ").lower().capitalize()
-
+                condition=False
+                while condition==False:
+                    try:
+                        pokemon_name=input("Select the second pokemon: ").lower().capitalize().strip()
+                        with open("db/pokemon.json","r") as file:
+                            pokemon_db=json.load(file)
+                            pokemon_info=pokemon_db[pokemon_name]
+                            file.close()
+                            condition=True
+                    except KeyError:
+                        print("This pokemon does not exist or you did a mistake")
+                        condition=False
             try:
-                with open("db/pokemon.json","r") as file:
-                        pokemon_db=json.load(file)
-                        pokemon_info=pokemon_db[pokemon_name]
-                        file.close()
 
                 if "Type2" in pokemon_info:
                         pokemon=Pokemon(pokemon_name,pokemon_info["Type1"],pokemon_info["Type2"],100)
