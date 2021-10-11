@@ -4,13 +4,17 @@ from assets.constants import *
 from assets.interfaces import *
 from assets.setter import *
 from assets.turn_model import Do_attack
+from assets.return_pkm_sets import *
 
+s=Save()
+s.create_tables()
+exit()
 set=Set()
 
 pokemon1=set.set_pokemon(True)
 pokemon2=set.set_pokemon(False)
-pokemon1.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,10,100,10))
-pokemon2.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,10,100,10))
+pokemon1.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,50,100,10))
+pokemon2.attacks.append(Attack("Corte",NORMAL,PHYSICAL_MOVE,50,100,10))
 
 battle=Battle(pokemon1,pokemon2)
 commands=Command()

@@ -52,9 +52,9 @@ class Set:
                     DEFENSE: random.randrange(0,31),
                     SPATTACK: random.randrange(0,31),
                     SPDEFENSE: random.randrange(0,31),
-                    SPEED: random.randrange(0,31) 
+                    SPEED: random.randrange(0,31)
                 }
-                
+
                 evs=self.set_evs()
                 pokemon.evs={
                     HP: int(evs[0]),

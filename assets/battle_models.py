@@ -1,3 +1,7 @@
+from assets.constants import SPEED
+from assets.pokemon_models import Pokemon
+
+
 class Command:
     def ask_command(self,pokemon):
         command=None
@@ -9,7 +13,7 @@ class Command:
         return command[1]
 
 class Battle:
-    def __init__(self,pokemon1,pokemon2):
+    def __init__(self,pokemon1:Pokemon,pokemon2:Pokemon):
         self.pokemon1=pokemon1
         self.pokemon2=pokemon2
         self.current_turn=0
@@ -21,6 +25,11 @@ class Battle:
         self.current_turn=self.current_turn+1
 
     def actual_status(self):
+        if self.pokemon1.current_hp<0:
+            self.pokemon1.current_hp=0
+        elif self.pokemon2.current_hp<0:
+            self.pokemon2.current_hp=0
+            
         print(self.pokemon1.name," has ",self.pokemon1.current_hp," HP")
         print(self.pokemon2.name," has ",self.pokemon2.current_hp," HP")
     
@@ -30,6 +39,11 @@ class Battle:
         elif self.pokemon2.current_hp<=0 and self.pokemon1.current_hp>0:
             print(self.pokemon1.name+" wins the battle!!!")
         else:
-            print("Draw. Double KO!!!!!")
-
+            print("The winner is ")
+            if self.pokemon1.stats[SPEED]>self.pokemon2.stats[SPEED]:
+                print(self.pokemon1.name,"!!!")
+            elif self.pokemon1.stats[SPEED]>self.pokemon2.stats[SPEED]:
+                print(self.pokemon2.name,"!!!")
+            else:
+                print("Draw. Double KO!!!!!")
     

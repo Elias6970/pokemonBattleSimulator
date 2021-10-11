@@ -2,7 +2,7 @@ import sqlite3, json
 
 class DataBases:
     def create_tables(self):
-        connection=sqlite3.connect("db/globalDb")
+        connection=sqlite3.connect("db/naturesDb")
         cursor=connection.cursor()
         cursor.execute("CREATE TABLE NATURES (NAMES VARCHAR(7), ATTACK DECIMAL, DEFENSE DECIMAL, SPATTACK DECIMAL, SPDEFENSE DECIMAL, SPEED DECIMAL)")
         #cursor.execute("CREATE TABLE MOVES_NAMES(NAMES VARCHAR(30))")

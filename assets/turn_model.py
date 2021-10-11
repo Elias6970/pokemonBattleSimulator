@@ -24,7 +24,7 @@ class Do_attack:
         
         
         Physical=bool
-        if attackerPokemon.attacks[int(attackerPokemon.current_attack_number)].category=="Physical":
+        if attackerPokemon.attacks[int(attackerPokemon.current_attack_number)].category=="Pyshical":
             self.attackStat=attackerPokemon.stats[ATTACK]
             Physical=True
         elif attackerPokemon.attacks[int(attackerPokemon.current_attack_number)].category=="Special":
@@ -59,23 +59,17 @@ class Do_attack:
         self.setCriticalHit()
         self.setStabAttack(attackerPokemon,defenderPokemon)
         self.setRandom()    
-        
-    #TODO: no va bien la damage formula. hay que comprobarla
-    #calculate the damage formula
+
+    #use the damage formula
     def compute_damage(self):
-        base_damage_caused=(((((2*self.attacker_pokemon_lvl)/5)+2)*self.attackPower*((self.attackStat/self.defenseStat)/50))+2)
-
+        base_damage_caused=((((((2*self.attacker_pokemon_lvl)/5)+2)*self.attackPower)*(self.attackStat/self.defenseStat)/50)+2)
         damage_caused=math.floor(base_damage_caused*self.targets*self.randomPerCent*self.stab*self.critical_damage)
-
         return damage_caused
+    
+    #dealt the damages
     def do_damage(self, pokemon1:Pokemon,pokemon2:Pokemon):
+        self.setAll(pokemon1,pokemon2)
+        pokemon2.current_hp=pokemon2.current_hp-self.compute_damage()
 
-        #Attack order based on speed
-        if int(pokemon1.stats[SPEED])<int(pokemon2.stats[SPEED]):
-            self.setAll(pokemon2,pokemon1)
-            print(pokemon1.current_hp)
-            pokemon1.current_hp=pokemon1.current_hp-self.compute_damage()
-
-        elif int(pokemon1.stats[SPEED])>=int(pokemon2.stats[SPEED]):
-            self.setAll(pokemon1,pokemon2)
-            pokemon2.current_hp=pokemon2.current_hp-self.compute_damage()
+        self.setAll(pokemon2,pokemon1)
+        pokemon1.current_hp=pokemon1.current_hp-self.compute_damage()
