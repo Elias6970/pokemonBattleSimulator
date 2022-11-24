@@ -74,8 +74,9 @@ class Set:
                        SPDEFENSE: stats_list[4],
                        SPEED: stats_list[5]
                 }
-                
+                print(pokemon)
                 pokemon.current_hp=pokemon.stats[HP]
+                
                 return pokemon
             except Exception:
                 pass
@@ -83,7 +84,7 @@ class Set:
     def set_evs(self):
         answer=input("Would you like to set your Evs?(y/n)").lower()
         total=1000
-        if answer=='y':
+        if answer=='y' or answer=="Y":
             while total>510:
                 total=0
                 try: 
@@ -98,6 +99,7 @@ class Set:
                         print("Evs can only be equal or less than 510, try it again")
                 except:
                     print("Evs are numbers and they can only be equal to 510, we set a random evs for you")
+                    #TODO:set evs randomly or ask if the user want to try again to set them
                     hp=6
                     attack=252
                     defense=0
@@ -110,7 +112,9 @@ class Set:
             evs_list=[hp,attack,defense,spattack,spdefense,speed]
             return evs_list
         
-        elif answer=='n':      
+        elif answer=='n':   
+            #TODO:set evs randomly 
+            # now we set them manually to test   
             hp=6
             attack=252
             defense=0
@@ -120,6 +124,7 @@ class Set:
             evs_list=[hp,attack,defense,spattack,spdefense,speed]
             return evs_list
 
+
 #Verify the nature in the db
     def verify_natures(self,nature:str):
         connection=sqlite3.connect("db/globalDb")
@@ -128,26 +133,28 @@ class Set:
         cursor.execute("SELECT * FROM NATURES WHERE NAMES=(?)",(nature,))
         naturePropieties=cursor.fetchone()
         return naturePropieties
-#Set the real stats with the stats formula
-    def set_stats(self,pokemon:Pokemon):
-        naturePropieties=self.verify_natures(pokemon.nature)
 
+#Set the real stats with the stats formula
+#las que estan comentadas se usaran con la función de naturaleza pero aún no está
+    def set_stats(self,pokemon:Pokemon):
+        #naturePropieties=self.verify_natures(pokemon.nature)
+        naturePropieties=0
         hp=math.floor(0.01*(2*int(pokemon.baseStats[HP])+int(pokemon.ivs[HP])+math.floor(0.25*int(pokemon.evs[HP])))*int(pokemon.level))+ int(pokemon.level)+10
 
         attack=(math.floor(0.01*(2*int(pokemon.baseStats[ATTACK])+int(pokemon.ivs[ATTACK])+math.floor(0.25*int(pokemon.evs[ATTACK])))*int(pokemon.level))+5)
-        attack=math.floor(attack+(attack*naturePropieties[1]))
+        #attack=math.floor(attack+(attack*naturePropieties[1]))
         
         defense=(math.floor(0.01*(2*int(pokemon.baseStats[DEFENSE])+int(pokemon.ivs[DEFENSE])+math.floor(0.25*int(pokemon.evs[DEFENSE])))*int(pokemon.level))+5)
-        defense=math.floor(defense+(defense*naturePropieties[2]))
+        #defense=math.floor(defense+(defense*naturePropieties[2]))
         
         spattack=(math.floor(0.01*(2*int(pokemon.baseStats[SPATTACK])+int(pokemon.ivs[SPATTACK])+math.floor(0.25*int(pokemon.evs[SPATTACK])))*int(pokemon.level))+5)
-        spattack=math.floor(spattack+(spattack*naturePropieties[3]))
+        #spattack=math.floor(spattack+(spattack*naturePropieties[3]))
         
         spdefense=(math.floor(0.01*(2*int(pokemon.baseStats[SPDEFENSE])+int(pokemon.ivs[SPDEFENSE])+math.floor(0.25*int(pokemon.evs[SPDEFENSE])))*int(pokemon.level))+5)
-        spdefense=math.floor(spdefense+(spdefense*naturePropieties[4]))
+        #spdefense=math.floor(spdefense+(spdefense*naturePropieties[4]))
         
         speed=(math.floor(0.01*(2*int(pokemon.baseStats[SPEED])+int(pokemon.ivs[SPEED])+math.floor(0.25*int(pokemon.evs[SPEED])))*int(pokemon.level))+5)
-        speed=math.floor(speed+(speed*naturePropieties[5]))
+        #speed=math.floor(speed+(speed*naturePropieties[5]))
 
         stats=[hp,attack,defense,spattack,spdefense,speed]
         return stats
